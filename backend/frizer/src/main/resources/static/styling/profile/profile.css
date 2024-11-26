@@ -1,0 +1,145 @@
+#profilePage{
+    padding: 10vh 8vw 5vh;
+}
+/* USER DETAILS START */
+#profilePage .userDetails{
+    max-width: 50vw;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+}
+#profilePage .userDetails h2{
+    grid-column: 1/-1;
+    margin: 0.5em 0;
+}
+#profilePage .userDetails .buttons {
+    grid-column: 1/-1;
+    margin: 1em 0;
+}
+/* USER DETAILS END */
+/* SALONS ADD FORM START */
+#profilePage #salonAddForm,
+#profileEditForm,
+#passwordEditForm {
+    max-width: 50vw;
+    margin: 3em 0 2em;
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    gap: 0.5em;
+    justify-content: center;
+    border: 1px solid var(--darker-color);
+    padding: 1em 2em;
+    border-radius: var(--border-radius);
+    grid-column: 1/-1;
+}
+
+#profilePage #salonAddForm,
+#profilePage #profileEditForm ,
+#profilePage #passwordEditForm {
+    grid-template-columns: 1fr 3fr;
+}
+
+#profilePage #salonAddForm h2,
+#profilePage #profileEditForm h2,
+#profilePage #passwordEditForm h2{
+    grid-column: 1/-1;
+    margin-bottom: 0.5em;
+}
+
+#profilePage #salonAddForm select,
+#profilePage #salonAddForm input,
+#profilePage #profileEditForm select,
+#profilePage #profileEditForm input,
+#profilePage #passwordEditForm select,
+#profilePage #passwordEditForm input{
+    box-sizing: border-box;
+    padding: 1em;
+    background-color: #d9d9d9;
+    border-radius: var(--border-radius);
+    border: none;
+}
+
+#profilePage #salonAddForm .primaryButton,
+#profilePage #profileEditForm .primaryButton,
+#profilePage #passwordEditForm .primaryButton {
+    margin-top: 1em;
+    grid-column: 2/3;
+    justify-self: flex-end;
+    padding: 1em 2.5em;
+}
+/* SALONS ADD FORM END */
+
+/* SALON LIST START */
+#profilePage .businessOwnerSalons h2{
+    margin-top: 1em;
+}
+#profilePage .cards{
+    margin-top: 1em;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(15em, 24%));
+    /*justify-content: center;*/
+    gap: 1em;
+}
+
+#profilePage .cards .salonCard{
+    background-color: var(--lighter-color);
+    border-radius: var(--border-radius);
+    text-align: center;
+    padding: 1em 2em;
+}
+
+#profilePage .cards .salonCard .salonImage{
+    width: 6em;
+    border-radius: var(--border-radius);
+}
+#profilePage .cards .salonCard .salonTitle{
+    margin-top: 1em;
+    font-weight: normal;
+}
+#profilePage .cards .salonCard .salonRating{
+    margin-top: 1em;
+}
+#profilePage .cards .salonCard .salonRating i{
+    color: yellow;
+}
+#profilePage .cards .salonCard .salonButton{
+    box-sizing: border-box;
+    border-radius: var(--border-radius);
+    border: 0.125em solid var(--dark-color);
+    color: var(--dark-color);
+    padding: 0.7em 1em;
+    font-weight: bold;
+    background: none;
+    cursor: pointer;
+}
+#profilePage .cards .salonCard .salonButton a{
+    color: var(--dark-color);
+}
+#profilePage .cards .salonCard .salonButton:hover{
+    background-color: var(--off-white);
+}
+#profilePage .cards .salonCard .buttons{
+    margin-top: 2em;
+    display: flex;
+    gap: 0.5em;
+    justify-content: center;
+}
+/* PASSWORD EDIT FORM START */
+
+#profilePage #passwordEditForm #hasError {
+    grid-column: 1/-1;
+    color: red;
+    font-weight: bold;
+    margin: 0;
+}
+
+/* PASSWORD EDIT FORM END */
+
+/* SALON LIST END */
+
+
+/* PROFILE EDIT FORM START */
+#profileEditForm{
+
+}
+/* PROFILE EDIT FORM END */
+

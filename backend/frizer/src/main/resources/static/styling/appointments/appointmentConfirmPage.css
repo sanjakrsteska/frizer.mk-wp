@@ -1,0 +1,74 @@
+#appointmentConfirmationPage{
+    padding: 10vh 8vw 5vh;
+}
+
+/* SALON CARD */
+#appointmentConfirmationPage .row {
+    display: flex;
+    gap: 1em;
+}
+
+#appointmentConfirmationPage .row:first-of-type {
+    align-items: center;
+    margin-bottom: 1em;
+}
+
+#appointmentConfirmationPage .salonProfile .salonImage img {
+    border-radius: var(--border-radius);
+    height: 5em;
+}
+/* SALON CARD END */
+
+/* EMPLOYEE START*/
+#appointmentConfirmationPage>h1{
+    margin: 1.5em 0 1em;
+}
+#appointmentConfirmationPage .employee {
+    background-color: var(--background-color);
+    border-radius: var(--border-radius);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2em;
+    width: 18em;
+}
+
+#appointmentConfirmationPage .employeeImage {
+    height: 6em;
+}
+
+#appointmentConfirmationPage .employeeName {
+    margin: 1em 0;
+}
+
+#appointmentConfirmationPage .employeeRating i {
+    color: var(--star-color);
+}
+
+#appointmentConfirmationPage .employeeImage img {
+    border-radius: var(--border-radius);
+    width: 100%;
+    height: 100%;
+}
+#appointmentConfirmationPage .employee .primaryButton{
+    margin-top: 1.5em;
+}
+/* EMPLOYEE END*/
+#appointmentConfirmationPage .confirmationBox{
+    display: flex;
+    gap: 5em;
+}
+#appointmentConfirmationPage .confirmationBox h2{
+    margin-bottom: 0.5em;
+}
+#appointmentConfirmationPage .confirmationBox .treatmentInfo{
+    display: grid;
+    gap: 0.5em;
+}
+#appointmentConfirmationPage .confirmationBox .totalPrice{
+    margin: 0.5em 0;
+}
+#appointmentConfirmationPage .confirmationBox .primaryButton{
+    padding: 1em 3em;
+}

@@ -1,0 +1,46 @@
+<div class="bodyContent" id="appointmentEmployeeePage">
+    <div class="salonProfile" th:if="${salon}">
+        <div class="row">
+            <div class="salonImage">
+                <img th:src="@{/images/salon_image.png}" alt="Salon image"/>
+            </div>
+            <div class="salonName">
+                <h1 th:text="${salon.getName()}"><i class="ri-heart-line"></i></h1>
+            </div>
+
+        </div>
+        <div class="row">
+            <i class="ri-map-pin-line"></i>
+            <p class="salonLocation" th:text="${salon.getLocation()}"></p>
+
+            <p class="salonRating"><i class="fas fa-star"></i> <span th:text="${#numbers.formatDecimal(salonStats.getRating(), 1, 2)}"></span> (<span
+                    th:text="${salonStats.getNumberOfReviews()}"></span> <span
+                    th:text="${salonStats.getNumberOfReviews() > 1 ? 'рецензии': 'рецензија'}"></span>)</p>
+        </div>
+    </div>
+    <div class="employees">
+        <h1>Одбери вработен</h1>
+        <p th:if="${employees == null || employees.size() == 0}">Нема вработени, врати се <a
+                th:href="@{'/salons/{id}' (id=${salon.getId()})}">назад</a></p>
+        <div class="employee" th:each="employee : ${employees}">
+            <div class="employeeImage">
+                <img th:src="@{/images/salons/default/default_barber.jpg}" alt="Barber image"/>
+            </div>
+            <div class="employeeName">
+                <h2 th:text="${employee.getBaseUser().getFirstName()}"></h2>
+            </div>
+            <p class="employeeRating">
+                <span th:text="${#numbers.formatDecimal(employeeMap[employee.id].getRating(), 1, 2)}"></span>
+                <i class="ri-star-fill"></i>
+                <span th:text="'(' + ${employeeMap[employee.id].getNumberOfReviews()} + ' рецензии)'"></span>
+            </p>
+            <p class="employeeExperience">Работи од 2024</p>
+            <form action="/salons/appointment/reserve" method="get">
+                <input type="hidden" name="salon" th:value="${salon.getId()}">
+                <input type="hidden" name="treatment" th:value="${treatment.getId()}">
+                <input type="hidden" name="employee" th:value="${employee.getId()}">
+                <button type="submit" class="reserve primaryButton">Резервирај</button>
+            </form>
+        </div>
+    </div>
+</div>

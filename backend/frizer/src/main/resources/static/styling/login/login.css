@@ -1,0 +1,51 @@
+#loginForm,#registerForm {
+    margin: auto;
+    /*width: 100%;*/
+    max-width: 500px;
+    padding: 20px;
+}
+
+#loginForm .form-box, #registerForm .form-box{
+    margin-top: 100px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#loginForm h2, #registerForm h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #333;
+}
+
+#loginForm .form-group,#registerForm .form-group {
+    margin-bottom: 15px;
+}
+
+#loginForm label, #registerForm label {
+    display: block;
+    font-size: 14px;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+#loginForm input[type="text"],
+#loginForm input[type="password"],
+#registerForm input[type="text"],
+#registerForm input[type="password"],
+#registerForm input[type="email"],
+#registerForm input[type="tel"]{
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    background-color: #d9d9d9;
+
+}
+#loginForm .primaryButton,registerForm .primaryButton {
+    text-align: center;
+}

@@ -1,0 +1,127 @@
+<div class="bodyContent" id="appointments">
+    <div th:if="${customer != null}" class="customerAppointments">
+        <h2>Термини</h2>
+        <div th:if="${customer.getAppointmentsActive() == null || customer.getAppointmentsActive().size() == 0}">
+            <h3>Немате активни термини</h3>
+        </div>
+        <div th:if="${customer.getAppointmentsActive().size() > 0}">
+            <h3>Вашите активни термини</h3>
+            <table>
+                <thead>
+                <tr>
+                    <th>Почеток на термин</th>
+                    <th>Крај на термин</th>
+                    <th>Третман</th>
+                    <th>Салон</th>
+                    <th>Вработен</th>
+                    <th>Присуствувано</th>
+                    <th>Акции</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="appointment: ${customer.getAppointmentsActive()}">
+                    <td th:text="${appointment.getDateFromFormatted()}"></td>
+                    <td th:text="${appointment.getDateToFormatted()}"></td>
+                    <td th:text="${appointment.getTreatment().getName()}"></td>
+                    <td th:text="${appointment.getSalon().getName()}"></td>
+                    <td th:text="${appointment.getEmployee().getFullName()}"></td>
+                    <td th:text="${appointment.isAttended() ? 'Да' : 'Не'}"></td>
+                    <td>
+                        <form th:if="${!appointment.isDateOneDayFromNow()}" th:action="@{'/appointments/delete/' + ${appointment.getId()}}" method="post" onsubmit="return confirmDelete('термин')">
+                            <button type="submit" class="secondaryButton">Откажи термин</button>
+                        </form>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div th:if="${customer.getAppointmentsHistory().size() > 0}">
+            <h3>Вашите поминати термини</h3>
+            <table>
+                <thead>
+                <tr>
+                    <th>Почеток на термин</th>
+                    <th>Крај на термин</th>
+                    <th>Третман</th>
+                    <th>Салон</th>
+                    <th>Вработен</th>
+                    <th>Присуствувано</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="appointment: ${customer.getAppointmentsHistory()}">
+                    <td th:text="${appointment.getDateFromFormatted()}"></td>
+                    <td th:text="${appointment.getDateToFormatted()}"></td>
+                    <td th:text="${appointment.getTreatment().getName()}"></td>
+                    <td th:text="${appointment.getSalon().getName()}"></td>
+                    <td th:text="${appointment.getEmployee().getFullName()}"></td>
+                    <td th:text="${appointment.isAttended() ? 'Да' : 'Не'}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div th:if="${employee != null}" class="employeeAppointments">
+        <h2>Термини во салонот <span th:text="${employee.getSalon().getName()}"></span></h2>
+        <div th:if="${employee.getAppointmentsActive() == null || employee.getAppointmentsActive().size() == 0}">
+            <h3>Немате активни термини во салонот <span th:text="${employee.getSalon().getName()}"></span></h3>
+        </div>
+        <div th:if="${employee.getAppointmentsActive().size() > 0}">
+            <h3>Вашите активни термини во салонот <span th:text="${employee.getSalon().getName()}"></span></h3>
+            <table>
+                <thead>
+                <tr>
+                    <th>Почеток на термин</th>
+                    <th>Крај на термин</th>
+                    <th>Третман</th>
+                    <th>Корисник</th>
+                    <th>Присуствувано</th>
+                    <th>Акции</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="appointment: ${employee.getAppointmentsActive()}">
+                    <td th:text="${appointment.getDateFromFormatted()}"></td>
+                    <td th:text="${appointment.getDateToFormatted()}"></td>
+                    <td th:text="${appointment.getTreatment().getName()}"></td>
+                    <td th:text="${appointment.getCustomer().getFullName()}"></td>
+                    <td th:text="${appointment.isAttended() ? 'Да' : 'Не'}"></td>
+                    <td class="actionsCell">
+
+                        <form th:if="${!appointment.isDateOneDayFromNow()}" th:action="@{'/appointments/delete/' + ${appointment.getId()}}" method="post" onsubmit="return confirmDelete('термин')">
+                            <button type="submit" class="secondaryButton">Откажи термин</button>
+                        </form>
+                        <form th:action="@{'/appointments/mark-as-done/' + ${appointment.getId()}}" method="post" onsubmit="return confirmDone()">
+                            <button type="submit" class="secondaryButton">Префрли во завршени</button>
+                        </form>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div th:if="${employee.getAppointmentsHistory().size() > 0}">
+            <h3>Вашите поминати термини во салонот <span th:text="${employee.getSalon().getName()}"></span></h3>
+            <table>
+                <thead>
+                <tr>
+                    <th>Почеток на термин</th>
+                    <th>Крај на термин</th>
+                    <th>Третман</th>
+                    <th>Корисник</th>
+                    <th>Присуствувано</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="appointment: ${employee.getAppointmentsHistory()}">
+                    <td th:text="${appointment.getDateFromFormatted()}"></td>
+                    <td th:text="${appointment.getDateToFormatted()}"></td>
+                    <td th:text="${appointment.getTreatment().getName()}"></td>
+                    <td th:text="${appointment.getCustomer().getFullName()}"></td>
+                    <td th:text="${appointment.isAttended() ? 'Да' : 'Не'}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+</div>
+<script th:src="@{/javascript/validateForm.js}"></script>
+</div>

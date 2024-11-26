@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/styling/root.css}">
+    <link rel="stylesheet" th:href="@{/styling/navbar.css}">
+    <link rel="stylesheet" th:href="@{/styling/footer.css}">
+    <link rel="stylesheet" th:href="@{/styling/home/landingPage.css}">
+    <link rel="stylesheet" th:href="@{/styling/home/featuredSalons.css}">
+    <link rel="stylesheet" th:href="@{/styling/login/login.css}">
+
+    <link rel="stylesheet" th:href="@{/styling/salons/salonDetails.css}"/>
+    <link rel="stylesheet" th:href="@{/styling/salons/salonsList.css}"/>
+    <link rel="stylesheet" th:href="@{/styling/map/salonsMap.css}"/>
+    <link rel="stylesheet" th:href="@{/styling/appointments/appointments.css}"/>
+    <link rel="stylesheet" th:href="@{/styling/appointments/appointmentEmployeePage.css}">
+    <link rel="stylesheet" th:href="@{/styling/appointments/appointmentChooseAppointmentPage.css}">
+    <link rel="stylesheet" th:href="@{/styling/appointments/appointmentConfirmPage.css}">
+    <link rel="stylesheet" th:href="@{/styling/profile/profile.css}">
+
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <title>Home</title>
+</head>
+<body>
+<header th:replace="fragments/header"></header>
+
+<main th:include="${bodyContent}"></main>
+
+<footer th:replace="fragments/footer"></footer>
+<script th:src="@{/javascript/navigation.js}"></script>
+<script th:src="@{/javascript/saveUserLocation.js}"></script>
+</body>
+</html>

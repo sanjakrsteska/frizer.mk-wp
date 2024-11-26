@@ -1,0 +1,57 @@
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+            xmlns:th="http://www.thymeleaf.org"
+            xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<header class="header" id="header">
+  <nav class="nav container">
+    <div>
+      <a href="/" class="nav__logo">
+        <img th:src="@{/images/clippers-duo-logo.png}" alt="Logo image">
+        Frizer.mk
+      </a>
+    </div>
+
+    <div class="nav__menu" id="nav-menu">
+      <ul class="nav__list">
+        <li class="nav__item">
+          <a href="/" class="nav__link">
+            <i class="ri-arrow-right-up-line"></i>
+            <span>Почетна</span>
+          </a>
+        </li>
+
+        <li class="nav__item">
+          <a href="/appointments" class="nav__link">
+            <i class="ri-arrow-right-up-line"></i>
+            <span>Термини</span>
+          </a>
+        </li>
+
+        <li class="nav__item" sec:authorize="isAnonymous()">
+          <a href="/login" class="nav__link">
+            <i class="ri-arrow-right-up-line"></i>
+            <span>Најави се</span>
+          </a>
+        </li>
+
+        <li class="nav__item" sec:authorize="isAuthenticated()">
+          <a href="/profile" class="nav__link">
+            <i class="ri-arrow-right-up-line"></i>
+            <span>Профил</span>
+          </a>
+        </li>
+      </ul>
+
+      <!-- Close button -->
+      <div class="nav__close" id="nav-close">
+        <i class="ri-close-large-line"></i>
+      </div>
+
+    </div>
+
+    <!-- Toggle button -->
+    <div class="nav__toggle" id="nav-toggle">
+      <i class="ri-menu-line"></i>
+    </div>
+  </nav>
+</header>
+</html>

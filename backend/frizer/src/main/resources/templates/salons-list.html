@@ -1,0 +1,130 @@
+<div class="bodyContent">
+    <div class="search">
+        <div th:insert="~{fragments/Search :: search}"></div>
+    </div>
+    <main class="salonsListed">
+        <div></div>
+        <div class="resultButtons">
+            <p>Пребарувањето врати <span th:text="${count}"></span> резултати</p>
+            <div class="buttons">
+                <button class="listButton">Салони</button>
+                <form th:action="@{/salons/map}" method="get" style="display: inline-block">
+                    <input type="hidden" name="name" th:value="${searchName}" readonly>
+                    <input type="hidden" name="city" th:value="${searchCity}" readonly>
+                    <input type="hidden" name="distance" th:value="${searchDistance}" readonly>
+                    <input type="hidden" name="rating" th:value="${searchRating}" readonly>
+                    <button class="mapButton">
+                        Мапа<i class="fa-regular fa-map"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <div class="searchResults">
+            <div class="searchFilter">
+                <div class="title">Салони со името</div>
+                <p th:text="${searchName != null && !searchName.isEmpty() ? searchName: 'Било кое'}"></p>
+            </div>
+            <div class="searchFilter" th:if="${searchRating != null && searchRating != 0}">
+                <div class="title">Салони со рејтинг над</div>
+                <p th:text="${searchRating}"></p>
+            </div>
+            <div class="searchFilter" th:if="${searchDistance != null && searchDistance != 300}">
+                <div class="title">Салони на оддалеченост до</div>
+                <p th:text="${searchDistance}"></p>
+            </div>
+            <div class="searchFilter" th:if="${searchCity != null}">
+                <div class="title">Салони во</div>
+                <p th:text="${searchCity}"></p>
+            </div>
+            <form th:action="@{/search}" method="post">
+                <!--        <div class="searchFilter">-->
+                <!--          <div class="title">Подредено според</div>-->
+                <!--          <div>-->
+                <!--            <label for="radio_distance">-->
+                <!--              <input-->
+                <!--                      type="radio"-->
+                <!--                      name="sort"-->
+                <!--                      id="radio_distance"-->
+                <!--                      value="distance"-->
+                <!--              />-->
+                <!--              Оддалеченост-->
+                <!--            </label>-->
+                <!--            <label for="radio_rating">-->
+                <!--              <input-->
+                <!--                      type="radio"-->
+                <!--                      name="sort"-->
+                <!--                      id="radio_rating"-->
+                <!--                      value="rating"-->
+                <!--              />-->
+                <!--              Рејтинг-->
+                <!--            </label>-->
+                <!--            <label for="radio_popularity">-->
+                <!--              <input-->
+                <!--                      type="radio"-->
+                <!--                      name="sort"-->
+                <!--                      id="radio_popularity"-->
+                <!--                      value="popularity"-->
+                <!--              />-->
+                <!--              Популарност-->
+                <!--            </label>-->
+                <!--          </div>-->
+                <!--        </div>-->
+                <div class="searchFilter">
+                    <div class="title">Пребарување по град</div>
+                    <div>
+                        <label for="1">
+                            <input type="radio" name="location" id="1" value="Штип"/>
+                            Штип
+                        </label>
+                        <label for="2">
+                            <input type="radio" name="location" id="2" value="Скопје"/>
+                            Скопје
+                        </label>
+                        <label for="3">
+                            <input type="radio" name="location" id="3" value="Велес"/>
+                            Велес
+                        </label>
+                        <label for="4">
+                            <input
+                                    type="radio"
+                                    name="location"
+                                    id="4"
+                                    value="Свети Николе"
+                            />
+                            Свети Николе
+                        </label>
+                    </div>
+                </div>
+                <div>
+                    <button type="submit">Пребарај</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="cards">
+            <div class="salonCard" th:each="salon : ${salons}">
+                <img class="salonImage" th:src="@{/images/salon_image.png}" alt="Salon"/>
+                <h3 class="salonTitle" th:text="${salon.getName()}"></h3>
+                <p class="salonRating">
+                    <i class="ri-star-fill"></i>
+                    <span th:text="${#numbers.formatDecimal(salon.getRating(), 1, 2)}"></span>
+                    (<span th:text="${salon.getNumberOfReviews()}"></span>
+                    <span th:text="${salon.getNumberOfReviews() > 1 ? 'рецензии': 'рецензија'}"></span>)
+                </p>
+                <p>Одалеченост
+                <span class="salonDistance" th:data-salon-id="${salon.getId()}"
+                      th:data-salon-lat="${salon.getLatitude()}" th:data-salon-lng="${salon.getLongitude()}"></span>
+                </p>
+                <p class="salonLocation" >
+                    <i class="ri-map-pin-line"></i>
+                    <span th:text="${salon.getLocation()} + ', ' + ${salon.getCity()}"></span>
+                </p>
+                <a th:href="@{'/salons/{id}' (id=${salon.getId()})}">
+                    <button class="salonButton">Прегледај</button>
+                </a>
+            </div>
+        </div>
+        <script th:src="@{/javascript/geoLocation.js}" defer></script>
+    </main>
+</div>

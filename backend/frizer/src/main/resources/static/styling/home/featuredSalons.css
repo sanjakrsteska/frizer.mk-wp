@@ -1,0 +1,50 @@
+#homePage .featuredSalons{
+    padding: 10vh 8vw;
+    /*min-height: 100vh;*/
+}
+
+#homePage .cards{
+    margin-top: 2em;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(15em, 24%));
+    justify-content: center;
+    gap: 1em;
+}
+
+#homePage .cards .salonCard{
+    background-color: #d9d9d9;
+    border-radius: var(--border-radius);
+    text-align: center;
+    padding: 1em 2em;
+}
+
+#homePage .cards .salonCard .salonImage{
+    width: 6em;
+    border-radius: var(--border-radius);
+}
+#homePage .cards .salonCard .salonTitle{
+    margin-top: 1em;
+    font-weight: normal;
+}
+#homePage .cards .salonCard .salonRating{
+    margin-top: 1em;
+}
+#homePage .cards .salonCard .salonRating i{
+    color: yellow;
+}
+#homePage .cards .salonCard .salonButton{
+    margin-top: 2em;
+    border-radius: var(--border-radius);
+    border: 0.125em solid #20232e;
+    color: var(--dark-color);
+    padding: 0.5em 2em;
+    font-weight: bold;
+    background: none;
+    cursor: pointer;
+}
+#homePage .cards .salonCard .salonButton a{
+    color: var(--dark-color);
+}
+#homePage .cards .salonCard .salonButton:hover{
+    background-color: #e7e7e7;
+}

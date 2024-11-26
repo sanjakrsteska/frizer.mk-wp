@@ -1,0 +1,74 @@
+<div class="bodyContent" id="appointmentConfirmationPage">
+    <div class="salonProfile" th:if="${salon}">
+        <div class="row">
+            <div class="salonImage">
+                <img th:src="@{/images/salon_image.png}" alt="Salon image"/>
+            </div>
+            <div class="salonName">
+                <h1 th:text="${salon.getName()}"><i class="ri-heart-line"></i></h1>
+            </div>
+
+        </div>
+        <div class="row">
+            <i class="ri-map-pin-line"></i>
+            <p class="salonLocation" th:text="${salon.getLocation()}"></p>
+
+            <p class="salonRating"><i class="fas fa-star"></i> <span
+                    th:text="${#numbers.formatDecimal(salon.getRating(), 1, 2)}"></span>> (<span
+                    th:text="${salonStats.getNumberOfReviews()}"></span> <span
+                    th:text="${salonStats.getNumberOfReviews() > 1 ? 'рецензии': 'рецензии'}"></span>)</p>
+        </div>
+    </div>
+
+    <h1>Потврда</h1>
+    <div class="confirmationBox">
+        <div class="employee">
+            <div class="employeeImage">
+                <img th:src="@{/images/salons/default/default_barber.jpg}" alt="Barber image"/>
+            </div>
+            <div class="employeeName">
+                <h2 th:text="${employee.getBaseUser().getFirstName()}"></h2>
+            </div>
+            <p class="employeeRating">
+
+                <span
+                        th:text="${#numbers.formatDecimal(employeeStats.getRating(), 1, 2)}"
+                ></span>
+                <i class="ri-star-fill"></i>
+                <span th:text="'(' + ${employeeStats.getNumberOfReviews()} + ' рецензии)'"></span>
+            </p>
+            <p class="employeeExperience">Работи од 2024</p>
+        </div>
+
+        <div class="treatmentInfo">
+            <h2>Детали за терминот</h2>
+            <p class="treatmentInfoItem"
+               th:text="'Датум: ' + ${#temporals.format(startAppointmentTime, 'dd.MM.yyyy')}"></p>
+            <p th:text="'Почеток на третман: ' + ${#temporals.format(startAppointmentTime, 'HH:mm')}"></p>
+            <p class="treatmentInfoItem"
+               th:text="'Крај на третман: ' + ${#temporals.format(endAppointmentTime, 'HH:mm')}"></p>
+            <p class="treatmentInfoItem" th:text="'Услуги: ' + ${treatment.getName()}"></p>
+            <p class="treatmentInfoItem">Тип на третман: Летна</p>
+            <p class="treatmentInfoItem"
+               th:text="'Траење на третман: '+${20 * treatment.getDurationMultiplier()}+' минути'"></p>
+
+            <p class="treatmentInfoItem totalPrice">
+                Вкупна цена:
+                <b th:text="${treatment.getPrice()} + ' ден'"></b>
+            </p>
+            <p class="treatmentInfoItem">
+            <form action="/appointments/create" method="post">
+                <input type="hidden" name="salon" th:value="${salon.getId()}">
+                <input type="hidden" name="treatment" th:value="${treatment.getId()}">
+                <input type="hidden" name="employee" th:value="${employee.getId()}">
+                <input type="hidden" th:value="${startAppointmentTime}" name="time">
+                <!--                    <input type="hidden" value=1 name="customerId">-->
+                <button class="confirmationButton primaryButton">Потврди</button>
+            </form>
+
+            </p>
+        </div>
+
+    </div>
+
+</div>

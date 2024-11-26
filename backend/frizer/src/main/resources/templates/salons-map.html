@@ -1,0 +1,23 @@
+<div class="bodyContent">
+    <div th:insert="~{fragments/Search :: search}"></div>
+    <div class="mapContainer">
+
+        <div class="resultButtons">
+            <p>Пребарувањето врати <span th:text="${count}"></span> резултати</p>
+            <div class="buttons">
+                <form th:action="@{/salons}" method="get" style="display: inline-block">
+                    <input type="hidden" name="name" th:value="${searchName}" readonly>
+                    <input type="hidden" name="city" th:value="${searchCity}" readonly>
+                    <input type="hidden" name="distance" th:value="${searchDistance}" readonly>
+                    <input type="hidden" name="rating" th:value="${searchRating}" readonly>
+                    <button class="listButton">Салони</button>
+                </form>
+                <button class="mapButton">
+                    Мапа<i class="fa-regular fa-map"></i>
+                </button>
+            </div>
+        </div>
+        <div id="map" th:salonsList="${salonsAsString}"></div>
+        <script th:src="@{/javascript/drawSalonsMap.js}" defer="defer"></script>
+    </div>
+</div>

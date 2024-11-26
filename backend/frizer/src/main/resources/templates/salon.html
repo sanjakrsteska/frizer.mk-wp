@@ -1,0 +1,215 @@
+<div class="bodyContent" id="openSalon">
+    <div class="featuredImages">
+        <div class="primaryImage">
+            <img th:src="@{${salon.getImagePaths() != null && salon.getImagePaths().size() > 0 ? salon.getImagePaths()[0] : '/images/salons/default/default_salon_1.jpg'}}"
+                 alt="Salon image"/>
+        </div>
+        <div class="secondaryImage">
+            <img th:src="@{${salon.getImagePaths() != null && salon.getImagePaths().size() > 1 ? salon.getImagePaths()[1] : '/images/salons/default/default_salon_2.jpg'}}"
+                 alt="Salon image"/>
+        </div>
+        <div class="secondaryImage">
+            <img th:src="@{${salon.getImagePaths() != null && salon.getImagePaths().size() > 2 ? salon.getImagePaths()[2] : '/images/salons/default/default_salon_3.jpg'}}"
+                 alt="Salon image"/>
+        </div>
+        <div class="teritaryImage">
+            <img th:src="@{${salon.getImagePaths() != null && salon.getImagePaths().size() > 3 ? salon.getImagePaths()[3] : '/images/salons/default/default_salon_4.jpg'}}"
+                 alt="Salon image"/>
+        </div>
+    </div>
+
+    <div class="salonProfile" th:if="${salon}">
+        <div class="row">
+            <div class="salonImage">
+                <img th:src="@{/images/salon_image.png}" alt="Salon image"/>
+            </div>
+            <div class="salonName">
+                <h1 th:text="${salon.getName()}"><i class="ri-heart-line"></i></h1>
+            </div>
+
+        </div>
+        <div class="row">
+            <i class="ri-map-pin-line"></i>
+            <p class="salonLocation" th:text="${salon.getLocation()}"></p>
+            <p class="salonRating"><i class="fas fa-star"></i> <span th:text="${#numbers.formatDecimal(salon.getRating(), 1, 2)}"></span> (<span
+                    th:text="${salon.getNumberOfReviews()}"></span> <span
+                    th:text="${salon.getNumberOfReviews() > 1 ? 'рецензии': 'рецензија'}"></span>)</p>
+        </div>
+    </div>
+
+    <div th:if="${isBusinessOwner}">
+        <h4 th:if="${error != null && error.length > 0}" th:text="${error}"></h4>
+        <form th:action="@{'/salons/' + ${salon.getId()} + '/image/add'}" method="post" class="addImageForm" enctype="multipart/form-data">
+            <h2>Додади слика</h2>
+            <label for="image">Слика</label>
+            <input type="file" name="image" id="image" required>
+            <label for="imageNo">Број на слика: </label>
+            <select name="imageNo" id="imageNo">
+                <option value="0">Слика 1</option>
+                <option value="1">Слика 2</option>
+                <option value="2">Слика 3</option>
+                <option value="3">Слика 4</option>
+            </select>
+            <button type="submit" class="primaryButton">
+                Промени
+            </button>
+        </form>
+    </div>
+
+    <div class="services">
+        <h1>Третмани</h1>
+        <div th:if="${treatments == null || treatments.size() == 0}">
+            <p>Нема третмани</p>
+        </div>
+        <div class="column" th:if="${treatments != null && treatments.size() > 0}">
+            <button class="service" th:each="treatment : ${treatments}" th:text="${treatment.getName()}"></button>
+        </div>
+        <div class="column" th:if="${treatments != null && treatments.size() > 0}">
+            <div class="serviceType" th:each="treatment : ${treatments}">
+                <p class="serviceTitle" th:text="${treatment.getName()}"></p>
+                <p class="servicePrice" th:text="${treatment.getPrice() + ' МКД'}"></p>
+                <form action="/salons/appointment" method="get">
+                    <input type="hidden" name="salon" th:value="${salon.getId()}">
+                    <input type="hidden" name="treatment" th:value="${treatment.getId()}">
+                    <button type="submit" class="reserve primaryButton">Резервирај</button>
+                </form>
+            </div>
+            <hr>
+        </div>
+    </div>
+
+    <div class="reviews">
+        <h1>Резиме на рецензии</h1>
+        <div th:if="${reviews == null || reviews.size() == 0}">
+            <p>Нема рецензии</p>
+        </div>
+        <div class="review" th:each="review : ${reviews}">
+            <div class="row">
+                <div class="reviewName">
+                    <h2 th:text="${(review.getUserFrom()?.getFirstName() ?: '') + ' ' + (review.getUserFrom()?.getLastName() ?: '')}"></h2>
+                </div>
+                <div class="reviewEmployeeName"
+                     th:text="${(review.getUserTo()?.getFirstName() ?: '') + ' ' + (review.getUserTo()?.getLastName() ?: '')}"></div>
+            </div>
+            <div class="row">
+                <div class="reviewStars">
+                    <span th:text="${review.getRating()}"></span>
+                    <span>
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                    </span>
+                </div>
+                <div class="reviewDate"
+                     th:text="${review.getDate().format(formatter)}"></div>
+            </div>
+            <div class="row">
+                <div class="reviewText" th:text="${review.getComment()}">
+                </div>
+            </div>
+        </div>
+
+        <form th:if="${salon.getEmployees().size() != 0}" action="/reviews/add" method="post" class="reviewAddForm"
+              onsubmit="return validateReviewForm();">
+            <h2>Додади рецензија</h2>
+            <input type="hidden" name="salonId" th:value="${salon.getId()}">
+            <label for="comment">Коментар</label>
+            <textarea name="comment" id="comment" cols="30" rows="10"></textarea>
+            <label for="rating">Оценка</label>
+            <input type="number" name="rating" id="rating">
+            <label for="employee">Вработен</label>
+            <select name="employeeId" id="employee">
+                <option th:each="employee: ${employees}" th:value="${employee.getId()}"
+                        th:text="${employee.getBaseUser().getFirstName() + ' ' + employee.getBaseUser().getLastName()}">
+                </option>
+            </select>
+            <button type="submit" class="primaryButton">Додади рецензија</button>
+        </form>
+    </div>
+
+    <div>
+        <div class="employees">
+            <h1>Вработени</h1>
+            <div th:if="${employees == null || employees.size() == 0}">
+                <p>Нема вработени</p>
+            </div>
+            <div class="employee" th:each="employee : ${employees}">
+                <div class="employeeImage">
+                    <img th:src="@{/images/salons/default/default_barber.jpg}" alt="Barber image"/>
+                </div>
+                <div class="employeeName">
+                    <h2 th:text="${employee.getBaseUser().getFirstName()}"></h2>
+                </div>
+                <p class="employeeRating">
+                    <span th:text="${#numbers.formatDecimal(employeeMap[employee.id].getRating(), 1, 2)}"></span>
+                    <i class="ri-star-fill"></i>
+                    <span th:text="'(' + ${employeeMap[employee.id].getNumberOfReviews()} + ' reviews)'"></span>
+                </p>
+                <p class="employeeExperience">Работи од 2024</p>
+            </div>
+        </div>
+        <br/>
+        <div th:if="${isBusinessOwner}">
+            <form action="/employees/add" method="post" class="employeeAddForm">
+                <h2>Додади вработен</h2>
+                <input type="hidden" name="salonId" th:value="${salon.getId()}">
+                <label for="userId">Корисник</label>
+                <select name="userId" id="userId">
+                    <option th:each="user: ${baseUsers}" th:value="${user.getId()}"
+                            th:text="${user.getFirstName() + ' ' + user.getLastName()}">
+                    </option>
+                </select>
+                <button type="submit" class="primaryButton">Додади вработен</button>
+            </form>
+        </div>
+        <div th:if="${isBusinessOwner && employees != null && employees.size() != 0}">
+            <form action="/employees/remove" method="post" class="employeeRemoveForm">
+                <h2>Отстрани вработен</h2>
+                <input type="hidden" name="salonId" th:value="${salon.getId()}">
+                <label for="employeeId">Вработен</label>
+                <select name="employeeId" id="employeeId">
+                    <option th:each="employee: ${employees}" th:value="${employee.getId()}"
+                            th:text="${employee.getBaseUser().getFirstName() + ' ' + employee.getBaseUser().getLastName()}">
+                    </option>
+                </select>
+                <button type="submit" class="primaryButton">Отстрани вработен</button>
+            </form>
+        </div>
+        <div th:if="${isBusinessOwnerOrEmployee}">
+            <form action="/treatments/add" method="post" class="treatmentAddForm">
+                <h2>Додади третман</h2>
+                <input type="hidden" name="salonId" th:value="${salon.getId()}">
+                <label for="name">Име</label>
+                <input type="text" id="name" name="name" required>
+                <label for="price">Цена</label>
+                <input type="number" id="price" name="price" required>
+                <label for="durationMultiplier">Времетраење</label>
+                <select name="durationMultiplier" id="durationMultiplier" required>
+                    <option th:each="number: ${#numbers.sequence(1,6)}" th:value="${number}"
+                            th:text="${number*20}+ ' минути'">
+                    </option>
+                </select>
+                <button type="submit" class="primaryButton">Додади третман</button>
+            </form>
+        </div>
+        <div th:if="${isBusinessOwnerOrEmployee && treatments != null && treatments.size() != 0}">
+            <form action="/treatments/remove" method="post" class="treatmentRemoveForm" onsubmit="return confirmDelete('третман')">
+                <h2>Отстрани третман</h2>
+                <input type="hidden" name="salonId" th:value="${salon.getId()}">
+                <label for="treatmentId">Третман</label>
+                <select name="treatmentId" id="treatmentId">
+                    <option th:each="treatment: ${treatments}" th:value="${treatment.getId()}"
+                            th:text="${treatment.getName()}">
+                    </option>
+                </select>
+                <button type="submit" class="primaryButton">Отстрани третман</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="map" th:salon="${salonAsString}"></div>
+    <script th:src="@{/javascript/validateForm.js}"></script>
+    <script th:src="@{/javascript/drawMap.js}" defer></script>
+</div>

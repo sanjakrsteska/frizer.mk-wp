@@ -1,0 +1,44 @@
+<div class="bodyContent" id="homePage">
+    <div class="landingPage">
+        <div class="blackOverlay"></div>
+        <h1 class="title">Само еден клик одалечени од Вашиот <br/>
+            омилен салон за убавина</h1>
+        <h4 class="subtitle">Резервирај брзо, лесно и едноставно со Frizer.mk</h4>
+
+        <div th:insert="~{fragments/Search :: search}"></div>
+
+        <div class="tags">
+            <h4>Градови со највеќе салони</h4>
+            <a th:href="@{'/salons?name=&city=' + ${city.getName()} + '&distance=&rating='}" class="tag" th:each="city: ${topCities}">
+                <div>
+                    <h5 th:text="${city.getName()}"></h5>
+                    <p><span th:text="${city.getSalonsInCity().size()}"></span> салони</p>
+                </div>
+            </a>
+        </div>
+
+    </div>
+
+    <div class="featuredSalons">
+        <h1>Највисоко рангирани салони</h1>
+        <div class="cards">
+            <div class="salonCard" th:each="salon : ${salons}">
+                <img class="salonImage" th:src="@{/images/salon_image.png}" alt="Salon">
+                <h3 class="salonTitle" th:text="${salon.getName()}"></h3>
+                <p class="salonRating">
+                    <i class="ri-star-fill"></i>
+                    <span th:text="${#numbers.formatDecimal(salon.getRating(), 1, 2)}"></span>
+                    (<span th:text="${salon.getNumberOfReviews()}"></span> рецензии)
+                </p>
+                <p class="salonLocation" >
+                    <i class="ri-map-pin-line"></i>
+                    <span th:text="${salon.getLocation()} + ', ' + ${salon.getCity()}"></span>
+                </p>
+                <a th:href="@{'/salons/{id}' (id=${salon.getId()})}">
+                <button class="salonButton">Прегледај</button>
+                </a>
+            </div>
+
+        </div>
+    </div>
+</div>

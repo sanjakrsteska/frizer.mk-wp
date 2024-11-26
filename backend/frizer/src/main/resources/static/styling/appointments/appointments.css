@@ -1,0 +1,28 @@
+#appointments{
+    padding: 10vh 8vw 0;
+}
+#appointments > div > h2{
+    margin: 1em 0 0.5em;
+}
+#appointments > div > div{
+    margin-bottom: 2em;
+}
+#appointments .customerAppointments{
+    margin-bottom: 3em;
+}
+#appointments > div > div > h3{
+    margin-bottom: 0.5em;
+}
+#appointments table{
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+#appointments table th,
+#appointments table td{
+    border: 1px solid black;
+    padding: 0.5em 1em;
+}
+#appointments table .actionsCell{
+    display: flex;
+    gap: 0.5em;
+}

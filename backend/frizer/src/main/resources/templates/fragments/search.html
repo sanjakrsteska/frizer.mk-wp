@@ -1,0 +1,19 @@
+<form class="searchForm" th:action="@{/salons}" method="get" th:fragment="search">
+    <input class="searchByNameInput" name="name" type="text" placeholder="Назив на салон...">
+    <button type="submit" class="primaryButton">Пребарај</button>
+    <a class="advanced-toggle" id="advanced-toggle">
+        Напредно
+        <i class="ri-arrow-down-line"></i>
+    </a>
+    <div class="advanced-menu" id="advanced-menu">
+        <label for="city">Град</label>
+        <select id="city" name="city">
+            <option th:each="city : ${cities}" th:value="${city.getName()}" th:text="${city.getName()}"></option>
+        </select>
+        <label for="distance">Растојание</label>
+        <input type="text" name="distance" id="distance">
+
+        <label for="rating">Рејтинг</label>
+        <input type="text" name="rating" id="rating">
+    </div>
+</form>

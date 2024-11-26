@@ -1,0 +1,39 @@
+<div class="bodyContent" id="registerForm">
+        <div class="form-box">
+            <h2>Регистрирај се</h2>
+            <form method="post" action="/register" onsubmit="return validateRegisterForm()">
+                <div class="form-group">
+                    <label for="email">Е-пошта</label>
+                    <input type="email" id="email" name="email" placeholder="Е-пошта" required="">
+                </div>
+                <div class="form-group">
+                    <label for="password">Лозинка</label>
+                    <input type="password" id="password" name="password" placeholder="Лозинка" required="">
+                </div>
+                <div class="form-group">
+                    <label for="repeatedPassword">Потврди Лозинка</label>
+                    <input type="password" id="repeatedPassword" name="repeatedPassword" placeholder="Потврди лозинка" required="">
+                </div>
+                <div class="form-group">
+                    <label for="firstName">Име</label>
+                    <input type="text" id="firstName" name="firstName" placeholder="Име" required>
+                </div>
+                <div class="form-group">
+                    <label for="lastName">Презиме</label>
+                    <input type="text" id="lastName" name="lastName" placeholder="Презиме" required>
+                </div>
+                <div class="form-group">
+                    <label for="phoneNumber">Телефонски број</label>
+                    <input type="text" id="phoneNumber" name="phoneNumber" placeholder="Телефонски број" required>
+                </div>
+                <th:block th:if="${hasError}">
+                    <div th:text="${error}" class="text-danger"></div>
+                </th:block>
+                <div class="form-group">
+                    <button id="submit" type="submit" class="primaryButton">Регистрирај се</button>
+                </div>
+            </form>
+            <p> Веќе имаш профил? <a href="/login">Логирај се</a></p>
+        </div>
+    <script th:src="@{/javascript/validateForm.js}" defer></script>
+</div>

@@ -1,0 +1,75 @@
+#appointmentEmployeeePage{
+    padding: 10vh 8vw 5vh;
+}
+
+/* SALON CARD */
+#appointmentEmployeeePage .salonProfile {
+    margin-top: 10vh;
+}
+
+#appointmentEmployeeePage .row {
+    display: flex;
+    gap: 1em;
+}
+
+#appointmentEmployeeePage .row:first-of-type {
+    align-items: center;
+    margin-bottom: 1em;
+}
+
+#appointmentEmployeeePage .salonProfile .salonImage img {
+    border-radius: var(--border-radius);
+    height: 5em;
+}
+/* SALON CARD END */
+
+/* EMPLOYEES START */
+#appointmentEmployeeePage .employees{
+    margin-top: 3em;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(18em, 1fr));
+    gap: 1em;
+}
+
+#appointmentEmployeeePage .employees h1{
+    grid-column: 1/-1;
+    margin-bottom: 0.5em;
+}
+
+#appointmentEmployeeePage .employees a{
+    text-decoration: underline;
+    color: currentColor;
+}
+
+#appointmentEmployeeePage .employee {
+    background-color: var(--background-color);
+    border-radius: var(--border-radius);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2em;
+}
+
+#appointmentEmployeeePage .employeeImage {
+    height: 6em;
+}
+
+#appointmentEmployeeePage .employeeName {
+    margin: 1em 0;
+}
+
+#appointmentEmployeeePage .employeeRating i {
+    color: var(--star-color);
+}
+
+#appointmentEmployeeePage .employeeImage img {
+    border-radius: var(--border-radius);
+    width: 100%;
+    height: 100%;
+}
+#appointmentEmployeeePage .employee .primaryButton{
+    margin-top: 1em;
+}
+/* EMPLOYEES END*/
+

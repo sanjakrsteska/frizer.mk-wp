@@ -1,0 +1,68 @@
+<div class="bodyContent" id="appointmentChooseAppointmentPage">
+    <div class="salonProfile" th:if="${salon}">
+        <div class="row">
+            <div class="salonImage">
+                <img th:src="@{/images/salon_image.png}" alt="Salon image"/>
+            </div>
+            <div class="salonName">
+                <h1 th:text="${salon.getName()}"><i class="ri-heart-line"></i></h1>
+            </div>
+
+        </div>
+        <div class="row">
+            <i class="ri-map-pin-line"></i>
+            <p class="salonLocation" th:text="${salon.getLocation()}"></p>
+
+
+            <p class="salonRating"><i class="fas fa-star"></i> <span
+                    th:text="${#numbers.formatDecimal(salonStats.getRating(), 1, 2)}"></span> (<span
+                    th:text="${salonStats.getNumberOfReviews()}"></span> <span
+                    th:text="${salonStats.getNumberOfReviews() > 1 ? 'рецензии': 'рецензија'}"></span>)</p>
+        </div>
+    </div>
+    <h1>Избран вработен</h1>
+    <div class="employee">
+        <div class="employee">
+            <div class="employeeImage">
+                <img th:src="@{/images/salons/default/default_barber.jpg}" alt="Barber image"/>
+            </div>
+            <div class="employeeName">
+                <h2 th:text="${employee.getBaseUser().getFirstName()}"></h2>
+            </div>
+            <p class="employeeRating">
+                <span th:text="${#numbers.formatDecimal(employeeStats.getRating(), 1, 2)}"></span>
+                <i class="ri-star-fill"></i>
+                <span th:text="'(' + ${employeeStats.getNumberOfReviews()} + ' рецензии)'"></span>
+            </p>
+            <p class="employeeExperience">Работи од 2024</p>
+        </div>
+    </div>
+
+    <div class="treatmentInfo">
+        <form action="/salons/appointment/confirm" method="get" class="treatmentChooseTimeForm">
+            <h2>Одбери термин</h2>
+            <input type="hidden" name="salon" th:value="${salon.getId()}">
+            <input type="hidden" name="treatment" th:value="${treatment.getId()}">
+            <input type="hidden" name="employee" th:value="${employee.getId()}">
+            <p>Одбери датум</p>
+            <p>Одбери време</p>
+            <p></p>
+            <select id="chooseDay">
+                <span th:each="i: ${tracker}">
+                    <option th:if="${i < days.size() && days.get(i) != null}" th:text="${days.get(i)}"
+                            th:value="${i}"></option>
+                </span>
+            </select>
+            <select name="time" id="time">
+                <span th:each="i: ${tracker}">
+                    <option th:each="timeSlot : ${availableTimeSlots.get(i)}"
+                            th:class="${i == 0} ? 'visible-option option options-' + ${i.toString()} : 'invisible-option option options-' + ${i.toString()}"
+                            th:value="${#temporals.format(timeSlot.getFrom(), 'yyyy-MM-dd HH:mm')}"
+                            th:text="${#temporals.format(timeSlot.getFrom(), 'HH:mm')} + ' - ' + ${#temporals.format(timeSlot.getTo(), 'HH:mm')}"></option>
+                </span>
+            </select>
+            <button type="submit" class="reserve primaryButton">Резервирај</button>
+        </form>
+    </div>
+    <script th:src="@{/javascript/selectChangeHandler.js}"></script>
+</div>

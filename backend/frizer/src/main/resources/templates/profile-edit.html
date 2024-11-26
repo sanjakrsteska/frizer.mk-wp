@@ -1,0 +1,30 @@
+<div class="bodyContent" id="profilePage">
+    <form action="/profile/edit" method="post" onsubmit="return validateProfileEditForm()" id="profileEditForm">
+        <h2>Промени детали</h2>
+        <label for="firstName">Име: </label>
+        <input type="text" name="firstName" id="firstName" th:value="${user.getFirstName()}">
+        <label for="lastName">Презиме: </label>
+        <input type="text" name="lastName" id="lastName" th:value="${user.getLastName()}">
+        <label for="phoneNumber">Телефонски број: </label>
+        <input type="text" name="phoneNumber" id="phoneNumber" th:value="${user.getPhoneNumber()}">
+        <button type="submit" class="primaryButton">
+            Промени
+        </button>
+    </form>
+    <form action="/profile/password/edit" method="post" onsubmit="return validatePasswordUpdateForm()"
+          id="passwordEditForm">
+        <h2>Промени лозинка:</h2>
+        <label for="oldPassword">Моментална лозинка: </label>
+        <input type="text" name="oldPassword" id="oldPassword" required>
+        <label for="newPassword">Нова лозинка: </label>
+        <input type="text" name="newPassword" id="newPassword" required>
+        <label for="repeatedPassword">Повтори лозинка: </label>
+        <input type="text" name="repeatedPassword" id="repeatedPassword" required>
+        <div th:if="${hasError}" id="hasError">Невалидна лозинка</div>
+        <button type="submit" class="primaryButton">
+            Промени
+        </button>
+    </form>
+    <script th:src="@{/javascript/validateForm.js}" defer></script>
+
+</div>

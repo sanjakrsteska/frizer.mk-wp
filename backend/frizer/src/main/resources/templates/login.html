@@ -1,0 +1,20 @@
+<div class="bodyContent" id="loginForm">
+    <div class="form-box">
+        <h2>Логирај се</h2>
+        <form method="post" action="/login">
+            <div class="form-group">
+                <label for="username">Корисничко име</label>
+                <input type="text" id="username" name="username" placeholder="Корисничко име" required="" autofocus="">
+            </div>
+            <div class="form-group">
+                <label for="password">Лозинка</label>
+                <input type="password" id="password" name="password" placeholder="Лозинка" required="">
+            </div>
+            <div th:if="${param.error}" class="error-message" th:text="${param.error}"></div>
+            <div class="form-group">
+                <button id="submit" type="submit" class="primaryButton">Логирај се</button>
+            </div>
+        </form>
+        <p> Немаш профил? <a href="/register">Креирај профил</a></p>
+    </div>
+</div>
